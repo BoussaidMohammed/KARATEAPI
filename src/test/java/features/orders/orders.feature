@@ -7,19 +7,19 @@ Feature: Create orders
 
   Scenario: successful orders with available books
     * print token.accessToken
-    * def availableIdFeature = call read("getBookId.feature@availableBookId")
+    * def availableBookIdScenario = call read("getBookId.feature@availableBookId")
     Given path 'orders'
     And header Authorization = token.accessToken
-    And request {bookId : #(availableIdFeature.availableId) , customerName : "Mohammed" }
+    And request {bookId : #(availableBookIdScenario.availableId) , customerName : "Mohammed" }
     When method post
     Then status 201
 
 
   Scenario: unsuccessful orders with unavailable books
-    * def unavailableIdFeature = call read("getBookId.feature@unavailableBookId")
+    * def unavailableBookIdScenario = call read("getBookId.feature@unavailableBookId")
     Given path 'orders'
     And header Authorization = token.accessToken
-    And request {bookId : #(unavailableIdFeature.unavailableId) , customerName : "Mohammed" }
+    And request {bookId : #(unavailableBookIdScenario.unavailableId) , customerName : "Mohammed" }
     When method post
-    Then status 400
+    Then status 404
     And match response contains {"error" : "#string"}

@@ -1,3 +1,7 @@
+# To create an order we must have a valid token, for that we call validTokenFeature in background
+# To get the available and the unavailable books Ids we called a feature for that is the getBookIdFeature.
+#
+#
 Feature: Create orders
 
   Background:
@@ -6,7 +10,7 @@ Feature: Create orders
     * def token = validTokenFeature.token
 
   Scenario: successful orders with available books
-    * print token.accessToken
+    #* print token.accessToken
     * def availableBookIdScenario = call read("getBookId.feature@availableBookId")
     Given path 'orders'
     And header Authorization = token.accessToken

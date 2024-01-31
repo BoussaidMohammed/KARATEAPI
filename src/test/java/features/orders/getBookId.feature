@@ -1,3 +1,7 @@
+# This feature is used to get the available and unavailable Book ids
+# getAnInExistIn is used to get randomly an element from the array passed as an argument.
+#
+#
 Feature: Get books ID
 
   Background:
@@ -22,17 +26,17 @@ Feature: Get books ID
     Then status 200
     And def availableBooksIds = karate.jsonPath(response,"$[?(@.available == true)].id")
     And def unavailableBooksIds = karate.jsonPath(response,"$[?(@.available == false)].id")
-    And print availableBooksIds
-    And print unavailableBooksIds
+    #And print availableBooksIds
+    #And print unavailableBooksIds
 
   @availableBookId
   Scenario: Getting an available id
     Given def booksIdsScenario = call read("getBookId.feature@booksIds")
     Then def availableId = getAnIdExistsIn(booksIdsScenario.availableBooksIds)
-    And print availableId
+    #And print availableId
 
   @unavailableBookId
   Scenario: Getting an unavailable id
     Given def booksIdsScenario = call read("getBookId.feature@booksIds")
     Then def unavailableId = getAnIdExistsIn(booksIdsScenario.unavailableBooksIds)
-    And print unavailableId
+    #And print unavailableId
